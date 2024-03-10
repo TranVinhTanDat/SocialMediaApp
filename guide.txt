@@ -1,0 +1,36 @@
+Recommend sử dụng android studio
+Part1: Demo trên firebase có sẵn của tôi
+cần bật thông báo trên app
+Part2: setting firebase của riêng bạn
+B1: add fingerprint
+SHA1: F4:59:4F:57:41:35:35:F1:3D:C6:4B:22:85:FF:2B:41:F4:2C:16:6B
+do mình đã thêm vào firebase cũ nên không thể thêm vào firebase mới
+B2: add provider email and google
+do mình đã thêm vào firebase cũ nên không thể thêm vào firebase mới
+B3: thay rules Realtime Database(lưu dữ liệu)
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+
+B4: thay rules và bucket Storage (lưu file)
+rules_version = '2';
+
+// Craft rules based on data in your Firestore database
+// allow write: if firestore.get(
+//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+
+B5: download google-servies.json và copy client-id type=3 vào folder res/values/strings.xml 
+thay default_web_client_id 
+và thay key_message được copy từ project setting -> cloud messaging
+tạm biệt...................
